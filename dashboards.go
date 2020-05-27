@@ -209,6 +209,7 @@ type DashboardLite struct {
 	Created     *string    `json:"created,omitempty"`
 	Modified    *string    `json:"modified,omitempty"`
 	CreatedBy   *CreatedBy `json:"created_by,omitempty"`
+	Url         *string    `json:"url,omitempty"`
 }
 
 // CreatedBy represents a field from DashboardLite.
