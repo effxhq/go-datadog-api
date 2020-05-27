@@ -227,7 +227,7 @@ type CreatedBy struct {
 
 // reqGetDashboards from /api/v1/dash
 type reqGetDashboards struct {
-	Dashboards []DashboardLite `json:"dashes,omitempty"`
+	Dashboards []DashboardLite `json:"dashboards,omitempty"`
 }
 
 // reqGetDashboard from /api/v1/dash/:dashboard_id
