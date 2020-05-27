@@ -209,7 +209,7 @@ type DashboardLite struct {
 	Created     *string    `json:"created,omitempty"`
 	Modified    *string    `json:"modified,omitempty"`
 	CreatedBy   *CreatedBy `json:"created_by,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	NewId       *string    `json:"new_id,omitempty"`
 }
 
 // CreatedBy represents a field from DashboardLite.
@@ -227,7 +227,7 @@ type CreatedBy struct {
 
 // reqGetDashboards from /api/v1/dash
 type reqGetDashboards struct {
-	Dashboards []DashboardLite `json:"dashboards,omitempty"`
+	Dashboards []DashboardLite `json:"dashes,omitempty"`
 }
 
 // reqGetDashboard from /api/v1/dash/:dashboard_id
@@ -265,7 +265,7 @@ func (client *Client) GetDashboard(id interface{}) (*Dashboard, error) {
 // GetDashboards returns a list of all dashboards created on this account.
 func (client *Client) GetDashboards() ([]DashboardLite, error) {
 	var out reqGetDashboards
-	if err := client.doJsonRequest("GET", "/v1/dashboard", nil, &out); err != nil {
+	if err := client.doJsonRequest("GET", "/v1/dash", nil, &out); err != nil {
 		return nil, err
 	}
 	return out.Dashboards, nil
