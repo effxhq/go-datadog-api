@@ -13,7 +13,7 @@
 	 "strconv"
  )
  
- type DependencyMap struct {
+type DependencyMap struct {
 	Calls []string `json:"calls"`
 }
  
