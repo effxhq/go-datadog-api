@@ -13,10 +13,9 @@
 	 "strconv"
  )
  
- type ServiceDependencies struct {
-	 ServiceName string
-	 Dependencies 	[]string
- }
+ type DependencyMap struct {
+	Calls []string `json:"calls"`
+}
  
  func (client *Client) GetServiceMap(env string, startTime *int, endTime *int) (&map[string]DependencyMap{}, error) {
 	 uri := "/v1/service_dependencies?" + env
