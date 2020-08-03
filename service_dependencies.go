@@ -14,6 +14,7 @@ import (
 )
 
 type DependencyMap struct {
+	// lists the service name of all downstream dependencies
 	Calls []string `json:"calls"`
 }
 
