@@ -13,12 +13,12 @@ import (
 	"strconv"
 )
 
-type DependencyMap struct {
-	// lists the service name of all downstream dependencies
-	Calls []string `json:"calls"`
+type ServiceDependencies struct {
+	ServiceName string
+	Dependencies 	[]string
 }
 
-func (client *Client) GetServiceMap(env string, startTime *int, endTime *int) (*map[string]DependencyMap{}, error) {
+func (client *Client) GetServiceMap(env string, startTime *int, endTime *int) (&map[string]DependencyMap{}, error) {
 	uri := "/v1/service_dependencies?" + env
 	dependencies := &map[string]DependencyMap{}
 
@@ -29,5 +29,6 @@ func (client *Client) GetServiceMap(env string, startTime *int, endTime *int) (*
 	err := client.doJsonRequest("GET", uri, nil, dependencies); err != nil {
 		return dependencies, err
 	}
+
 	return dependencies, nil
 }
