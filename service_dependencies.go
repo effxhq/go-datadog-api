@@ -17,7 +17,7 @@ type DependencyMap struct {
 }
 
 func (client *Client) GetServiceMap(env string, startTime *int, endTime *int) (*map[string]DependencyMap, error) {
-	uri := "/v1/service_dependencies?" + env
+	uri := "/v1/service_dependencies?env=" + env
 	dependencies := &map[string]DependencyMap{}
 
 	if startTime != nil && endTime != nil {
