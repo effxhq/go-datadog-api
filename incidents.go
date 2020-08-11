@@ -38,6 +38,7 @@ type Attributes struct {
 	Severity         string       `json:"severity,omitempty"`
 	PostmortemId     string       `json:"postmortem_id,omitempty"`
 	CustomerImpacted bool         `json:"customer_impacted,omitempty"`
+	PublicId         int          `json:"public_id,omitempty"`
 }
 
 type IncidentQueryOpts struct {
