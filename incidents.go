@@ -90,3 +90,54 @@ func (client *Client) GetIncidentsWithOptions(opts IncidentQueryOpts) ([]Inciden
 
 	return out.Incidents, nil
 }
+
+type TimelineContent struct {
+	Content      string `json:"content,omitempty"`
+	CurrentState string `json:"current_state,omitempty"`
+}
+
+type TimelineAttributes struct {
+	CellType   string          `json:"cell_type,omitempty"`
+	Content    TimelineContent `json:"content,omitempty"`
+	CreatedAt  string          `json:"created,omitempty"`
+	ModifiedAt string          `json:"modified,omitempty"`
+	Source     string          `json:"source,omitempty"`
+	Important  bool            `json:"important,omitempty"`
+}
+
+type Timeline struct {
+	Attributes TimelineAttributes `json:"attributes,omitempty"`
+	ID         string             `json:"id,omitempty"`
+}
+
+type reqTimelines struct {
+	Meta      Meta       `json:"meta,omitempty"`
+	Timelines []Timeline `json:"data,omitempty"`
+}
+
+func (client *Client) GetIncidentTimelineWithOptions(incident_id string, opts IncidentQueryOpts) ([]Timeline, error) {
+	var out reqTimelines
+	var query []string
+	if len(opts.Include) > 0 {
+		value := fmt.Sprintf("include=%s", opts.Include)
+		query = append(query, value)
+	}
+	if opts.PageSize > 0 {
+		value := fmt.Sprintf("page[size]=%d", opts.PageSize)
+		query = append(query, value)
+	}
+	if opts.PageNumber > 0 {
+		value := fmt.Sprintf("page[number]=%d", opts.PageNumber)
+		query = append(query, value)
+	}
+	queryString, err := url.ParseQuery(strings.Join(query, "&"))
+	if err != nil {
+		return nil, err
+	}
+	err = client.doJsonRequest("GET", fmt.Sprintf("/v2/incidents/%s/timeline?%v", incident_id, queryString.Encode()), nil, &out)
+	if err != nil {
+		return nil, err
+	}
+
+	return out.Timelines, nil
+}
