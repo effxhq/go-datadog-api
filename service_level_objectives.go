@@ -352,6 +352,7 @@ func (client *Client) ListSLO() (SLOListResponse, error) {
 	if err := client.doJsonRequest("GET", "/api/v1/slo", nil, &out); err != nil {
 		return out, err
 	}
+
 	if len(*out.Errors) > 0 {
 		return out, fmt.Errorf((*out.Errors)[0])
 	}
