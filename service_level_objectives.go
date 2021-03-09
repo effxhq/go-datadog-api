@@ -79,6 +79,14 @@ type ServiceLevelObjectiveMetricQuery struct {
 	Denominator *string `json:"denominator,omitempty"`
 }
 
+// SLOListResponse A response with one or more service level objective.
+type SLOListResponse struct {
+	// An array of service level objective objects.
+	Data *[]ServiceLevelObjective `json:"data,omitempty"`
+	// An array of error messages. Each endpoint documents how/whether this field is used.
+	Errors *[]string `json:"errors,omitempty"`
+}
+
 // ServiceLevelObjectiveThresholds is a sortable array of ServiceLevelObjectiveThreshold(s)
 type ServiceLevelObjectiveThresholds []*ServiceLevelObjectiveThreshold
 
@@ -335,6 +343,21 @@ func (client *Client) GetServiceLevelObjective(id string) (*ServiceLevelObjectiv
 	}
 
 	return out.Data, nil
+}
+
+// ListSLO retrieves all service level objectives.
+func (client *Client) ListSLO() (SLOListResponse, error) {
+	var out SLOListResponse
+
+	if err := client.doJsonRequest("GET", "/api/v1/slo", nil, &out); err != nil {
+		return out, err
+	}
+
+	if len(*out.Errors) > 0 {
+		return out, fmt.Errorf((*out.Errors)[0])
+	}
+
+	return out, nil
 }
 
 type reqDeleteResp struct {
