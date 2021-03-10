@@ -354,6 +354,8 @@ func (client *Client) ListSLO() (SLOListResponse, error) {
 		return out, err
 	}
 
+	fmt.Println("out here", out)
+
 	if len(*out.Errors) > 0 {
 		fmt.Println("error 2 yes", (*out.Errors))
 		return out, fmt.Errorf((*out.Errors)[0])
