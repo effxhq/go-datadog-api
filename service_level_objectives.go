@@ -355,6 +355,7 @@ func (client *Client) ListSLO() (SLOListResponse, error) {
 	}
 
 	if len(*out.Errors) > 0 {
+		fmt.Println("ready to go", out.Errors)
 		return out, fmt.Errorf((*out.Errors)[0])
 	}
 
