@@ -349,7 +349,7 @@ func (client *Client) GetServiceLevelObjective(id string) (*ServiceLevelObjectiv
 func (client *Client) ListSLO() (SLOListResponse, error) {
 	var out SLOListResponse
 
-	if err := client.doJsonRequest("GET", "/v1/slo", nil, &out); err != nil {
+	if err := client.doJsonRequest("GET", "/api/v1/slo", nil, &out); err != nil {
 		return out, err
 	}
 
