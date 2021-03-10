@@ -359,6 +359,8 @@ func (client *Client) ListSLO() (SLOListResponse, error) {
 		return out, fmt.Errorf((*out.Errors)[0])
 	}
 
+	fmt.Println("is this printing", out)
+
 	return out, nil
 }
 
