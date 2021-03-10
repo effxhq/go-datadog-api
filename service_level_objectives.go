@@ -242,7 +242,7 @@ func (client *Client) CreateServiceLevelObjective(slo *ServiceLevelObjective) (*
 		return nil, fmt.Errorf("no SLO specified")
 	}
 
-	if err := client.doJsonRequest("POST", "/v1/slo", slo, &out); err != nil {
+	if err := client.doJsonRequest("GET", "/v1/slo", slo, &out); err != nil {
 		return nil, err
 	}
 	if out.Error != "" {
