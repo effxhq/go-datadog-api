@@ -517,12 +517,11 @@ type ServiceLevelObjectiveHistoryMetricSeriesData struct {
 	Count    int64       `json:"count"`
 	Sum      json.Number `json:"sum"`
 	MetaData struct {
-		QueryIndex *int64                                `json:"query_index"`
-		Aggregator *string                               `json:"aggr"`
-		Scope      *string                               `json:"scope"`
-		Metric     *string                               `json:"metric"`
-		Expression *string                               `json:"expression"`
-		Unit       []SLOHistoryMetricsSeriesMetadataUnit `json:"unit"`
+		QueryIndex *int64  `json:"query_index"`
+		Aggregator *string `json:"aggr"`
+		Scope      *string `json:"scope"`
+		Metric     *string `json:"metric"`
+		Expression *string `json:"expression"`
 	} `json:"metadata"`
 	Values []json.Number `json:"values"`
 	Times  []int64       `json:"times"`
