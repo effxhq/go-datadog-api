@@ -492,17 +492,37 @@ func (client *Client) CheckCanDeleteServiceLevelObjectives(ids []string) (*Servi
 // ServiceLevelObjectiveHistorySeriesPoint is a convenient wrapper for (timestamp, value) history data response.
 type ServiceLevelObjectiveHistorySeriesPoint [2]json.Number
 
+type NullableString struct {
+	value *string
+	isSet bool
+}
+
+type SLOHistoryMetricsSeriesMetadataUnit struct {
+	// The family of metric unit, for example `bytes` is the family for `kibibyte`, `byte`, and `bit` units.
+	Family *string `json:"family,omitempty"`
+	// The ID of the metric unit.
+	Id *int64 `json:"id,omitempty"`
+	// The unit of the metric, for instance `byte`.
+	Name *string `json:"name,omitempty"`
+	// The plural Unit of metric, for instance `bytes`.
+	Plural NullableString `json:"plural,omitempty"`
+	// The scale factor of metric unit, for instance `1.0`.
+	ScaleFactor *float64 `json:"scale_factor,omitempty"`
+	// A shorter and abbreviated version of the metric unit, for instance `B`.
+	ShortName NullableString `json:"short_name,omitempty"`
+}
+
 // ServiceLevelObjectiveHistoryMetricSeriesData contains the `batch_query` like history data for `metric` based SLOs
 type ServiceLevelObjectiveHistoryMetricSeriesData struct {
 	Count    int64       `json:"count"`
 	Sum      json.Number `json:"sum"`
 	MetaData struct {
-		QueryIndex int     `json:"query_index"`
-		Aggregator string  `json:"aggr"`
-		Scope      string  `json:"scope"`
-		Metric     string  `json:"metric"`
-		Expression string  `json:"expression"`
-		Unit       *string `json:"unit"`
+		QueryIndex *int64                                `json:"query_index"`
+		Aggregator *string                               `json:"aggr"`
+		Scope      *string                               `json:"scope"`
+		Metric     *string                               `json:"metric"`
+		Expression *string                               `json:"expression"`
+		Unit       []SLOHistoryMetricsSeriesMetadataUnit `json:"unit"`
 	} `json:"metadata"`
 	Values []json.Number `json:"values"`
 	Times  []int64       `json:"times"`
